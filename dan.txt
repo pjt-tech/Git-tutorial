@@ -23,5 +23,3 @@ Scanner s = new Scanner(System.in);
 			
 			for(i=1;i<=9;i++) {
 				System.out.println(dan+"X"+i+"="+(dan*i));
-dan
-dd

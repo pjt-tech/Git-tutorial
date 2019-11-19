@@ -50,3 +50,4 @@ Scanner s = new Scanner(System.in);
 		}
 		
 		System.out.printf("%d에서%d까지 %d씩 증가한 값의 합 : %d \n",num1,num2,num3,sum);
+asd

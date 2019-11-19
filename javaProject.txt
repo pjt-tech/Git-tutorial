@@ -1,0 +1,53 @@
+package chap01;
+
+public class SecondProject {
+
+	public static void main(String[] args) {
+		
+		System.out.println("정수형 나눗셈 :" + 7/3);
+		System.out.println("실수형 나눗셈 :" + 7.0f/3.0f);
+		System.out.println("정수형 나머지 :" + 7%3);
+		System.out.println("실수형 나머지 :" + (float)7.0%3.0);
+		
+		int num1 = 30;
+		int num2 = 40;
+		int num3 = num1+num2;
+		
+		System.out.printf("\n더하기결과:%d \n", num3);
+		System.out.println("더하기결과"+num3);
+		System.out.println(num1+"+"+num2+"="+num3);
+		System.out.println(num1+num2);
+
+//3의배수
+
+int sum=0;
+		for(int i= 1; i<=100; i++) {
+			
+						
+			if(i%3==0) {
+				sum+=i;
+			
+			}
+			
+	
+	}
+		System.out.println("1에서 100까지의 3의 배수 합계:"+sum);
+
+
+//sum
+Scanner s = new Scanner(System.in);
+		int num1,num2,num3,sum=0;
+		System.out.print("시작값 입력 :");
+		num1 = s.nextInt();
+		System.out.print("끝값 입력 : ");
+		num2 = s.nextInt();
+		System.out.print("증가값 입력:");
+		num3 = s.nextInt();
+		
+		for(int i=num1; i<=num2; i=i+num3) {
+			
+			sum += i;
+		}
+		
+		System.out.printf("%d에서%d까지 %d씩 증가한 값의 합 : %d \n",num1,num2,num3,sum);
+asd

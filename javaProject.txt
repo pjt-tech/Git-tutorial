@@ -17,4 +17,3 @@ public class SecondProject {
 		System.out.println("더하기결과"+num3);
 		System.out.println(num1+"+"+num2+"="+num3);
 		System.out.println(num1+num2);
-sdfdsafsdaf

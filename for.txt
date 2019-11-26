@@ -1,0 +1,55 @@
+//for문을 이용한 구구단	
+Scanner s = new Scanner(System.in);
+	int i;
+	int dan;
+	System.out.print("몇 단?");
+	dan=s.nextInt();
+		
+	 	for(i=1;i<=9;i++) {	
+		System.out.printf("%d X %d = %d \n",dan,i,dan*i);
+//중첩for문을 이용한 구구단
+	Scanner s = new Scanner(System.in);
+		int i = 1 ,dan;
+		
+		System.out.print("구구단");
+	
+		
+		for(dan=2;dan<=9;dan++) {
+			System.out.println(dan+"단");
+			
+			for(i=1;i<=9;i++) 
+				System.out.println(dan+"X"+i+"="+(dan*i));
+// for문과 if문을 이용한 계산기
+		Scanner s = new Scanner(System.in);
+		int num1,num2,num3,sum=0;
+		System.out.print("시작값 입력 :");
+		num1 = s.nextInt();
+		System.out.print("끝 값 입력:");
+		num2 = s.nextInt();
+		System.out.print("배수값 입력:");
+		num3 = s.nextInt();
+	
+		for(int i = num1; i<=num2; i++) {
+			if(i%num3==0)
+				sum=sum+i;
+				
+				
+		}
+		
+		System.out.printf("%d에서 %d까지 %d의 배수의 합 : %d \n",num1,num2,num3,sum);
+
+//for문을 이용한 3의 배수 합계
+		int sum=0;
+		for(int i =1; i<=100; i++) {
+			if(i%3==0)
+				sum+=i;
+
+	}
+	    System.out.print("1에서 100까지의 3의 배수 합계:"+sum);
+//별 숫자 늘리기
+for(int i = 1; i<=5; i++)
+			for(int j=1; j<=i; j++)
+			{
+				System.out.print("*");
+				if(j==i)
+					System.out.println();

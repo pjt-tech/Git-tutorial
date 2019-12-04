@@ -1,0 +1,26 @@
+  EditText  num1,num2,num3;
+    Button bt;
+    TextView result,result1,result2;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        num1 = (EditText)findViewById(R.id.edt_Name);
+        num2 = (EditText)findViewById(R.id.edt_age);
+        num3 = (EditText)findViewById(R.id.edt_Juso);
+        bt = (Button)findViewById(R.id.button);
+        result = (TextView)findViewById((R.id.textView));
+        result1 = (TextView)findViewById((R.id.textView2));
+        result2 = (TextView)findViewById((R.id.textView3));
+
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String number1 = (num1.getText().toString());
+               String number2 = (num2.getText().toString());
+               String number3 = (num3.getText().toString());
+
+                result.setText("입력한 이름 : "+ String.valueOf(number1));
+                result1.setText("입력한 나이 : "+ String.valueOf(number2));
+                result2.setText("입력한 주소 : "+ String.valueOf(number3));
+                Toast.makeText(getApplicationContext(),"입력된 값 : " + number1+","+number2+","+number3,Toast.LENGTH_LONG).show();

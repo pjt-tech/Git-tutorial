@@ -24,3 +24,27 @@
                 result1.setText("입력한 나이 : "+ String.valueOf(number2));
                 result2.setText("입력한 주소 : "+ String.valueOf(number3));
                 Toast.makeText(getApplicationContext(),"입력된 값 : " + number1+","+number2+","+number3,Toast.LENGTH_LONG).show();
+///더하기 계산
+
+ //전역변수
+    EditText num1,num2;
+    TextView result;
+    Button add;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+     //지역변수
+        num1 = (EditText)findViewById(R.id.edt_Num1);
+        num2 = (EditText)findViewById(R.id.edt_Num2);
+        result = (TextView)findViewById(R.id.txt_Result);
+        add = (Button)findViewById(R.id.btn_Add);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int number1 = Integer.parseInt(num1.getText().toString());
+                int number2 = Integer.parseInt(num2.getText().toString());
+                int sum = number1 + number2;
+                result.setText(String.valueOf(sum));

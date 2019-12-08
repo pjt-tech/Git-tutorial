@@ -16,3 +16,8 @@ public class SecondProject {
 		System.out.printf("\n더하기결과:%d \n", num3);
 		System.out.println("더하기결과"+num3);
 		System.out.println(num1+"+"+num2+"="+num3);
+//곱하기
+
+int num1= 30;
+int num2 = 40;
+int num3 = num1*num2;

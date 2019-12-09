@@ -48,3 +48,224 @@
                 int number2 = Integer.parseInt(num2.getText().toString());
                 int sum = number1 + number2;
                 result.setText(String.valueOf(sum));
+//touch 를 이용한 좌표값계산
+
+EditText editText3,editText4,editText5;
+    Button bt;
+    FrameLayout fl;
+    int num;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+     editText3 = findViewById(R.id.editText2);
+     editText4 = findViewById(R.id.editText3);
+     editText5 = findViewById(R.id.editText4);
+     bt = findViewById(R.id.button);
+     fl = findViewById(R.id.frameLayout2);
+
+     fl.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            if(event.getAction()==MotionEvent.ACTION_DOWN){
+                double x = event.getX();
+                double y = event.getY();
+                num++;
+                editText3.setText(String.valueOf(x));
+                editText4.setText(String.valueOf(y));
+                String touch = "터치한 횟수 : " + num;
+                editText5.setText(touch);
+            }
+
+             return false;
+         }
+     });
+     bt.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             finish();
+         }
+     });
+
+//계산기
+
+EditText editText1,editText2;
+    TextView textResult;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText1 = findViewById(R.id.editText1);
+        editText2 = findViewById(R.id.editText2);
+        textResult = findViewById(R.id.textResult);
+
+        Button btnadd = findViewById(R.id.btnAdd);
+        Button btnsub = findViewById(R.id.btnSub);
+        Button btnMul = findViewById(R.id.btnMul);
+        Button btnDiv = findViewById(R.id.btnDiv);
+        Button btnRem = findViewById(R.id.btnRem);
+
+        btnadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num1 = editText1.getText().toString();
+                String num2 = editText2.getText().toString();
+                if(num1.equals("") || num2.equals("")){
+                    Toast.makeText(getApplicationContext(),"입력 값이 비었습니다.",Toast.LENGTH_LONG).show();
+                }else{
+                    Double result = Double.parseDouble(num1)+Double.parseDouble(num2);
+                    result = (int)(result*10)/10.0; //소수점아래 1자리까지만 출력
+                    textResult.setText("계산결과 : " + result.toString());
+                }
+
+            }
+        });
+        btnsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num1 = editText1.getText().toString();
+                String num2 = editText2.getText().toString();
+                if(num1.equals("") || num2.equals("")){
+                    Toast.makeText(getApplicationContext(),"입력 값이 비었습니다.",Toast.LENGTH_LONG).show();
+                }else{
+                    Double result = Double.parseDouble(num1)-Double.parseDouble(num2);
+                    result = (int)(result*10)/10.0; //소수점아래 1자리까지만 출력
+                    textResult.setText("계산결과 : " + result.toString());
+                }
+
+            }
+        });
+        btnMul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num1 = editText1.getText().toString();
+                String num2 = editText2.getText().toString();
+                if(num1.equals("") || num2.equals("")){
+                    Toast.makeText(getApplicationContext(),"입력 값이 비었습니다.",Toast.LENGTH_LONG).show();
+                }else{
+                    Double result = Double.parseDouble(num1)*Double.parseDouble(num2);
+                    result = (int)(result*10)/10.0; //소수점아래 1자리까지만 출력
+                    textResult.setText("계산결과 : " + result.toString());
+                }
+
+            }
+        });
+        btnDiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num1 = editText1.getText().toString();
+                String num2 = editText2.getText().toString();
+                if(num1.equals("") || num2.equals("")){
+                    Toast.makeText(getApplicationContext(),"입력 값이 비었습니다.",Toast.LENGTH_LONG).show();
+                }else{
+                    if(num2.equals("0")){
+                        Toast.makeText(getApplicationContext(),"0으로 나누면 안됩니다.",Toast.LENGTH_LONG).show();
+                    }else{
+
+                    }
+                    Double result = Double.parseDouble(num1)/Double.parseDouble(num2);
+                    result = (int)(result*10)/10.0; //소수점아래 1자리까지만 출력
+                    textResult.setText("계산결과 : " + result.toString());
+                }
+
+            }
+        });
+        btnRem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num1 = editText1.getText().toString();
+                String num2 = editText2.getText().toString();
+                if(num1.equals("") || num2.equals("")){
+                    Toast.makeText(getApplicationContext(),"입력 값이 비었습니다.",Toast.LENGTH_LONG).show();
+                }
+                else if(num2.equals("0")){
+                    Toast.makeText(getApplicationContext(),"0으로 나누면 안됩니다.",Toast.LENGTH_LONG).show();
+                    }
+
+                else
+                    {
+
+                    }
+                    Double result = Double.parseDouble(num1)%Double.parseDouble(num2);
+                    textResult.setText("계산결과 : " + result.toString());
+
+
+            }
+        });
+//이미지뷰
+
+TextView textView;
+    RadioGroup radioGroup;
+    RadioButton rdo_7, rdo_8, rdo_9;
+    ImageView imageView;
+    Button button,button2;
+    Switch sw;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        sw = findViewById(R.id.switch1);
+        textView = findViewById(R.id.textView2);
+        radioGroup = findViewById(R.id.rdo_group);
+        rdo_7 = findViewById(R.id.rdo_7);
+        rdo_8 = findViewById(R.id.rdo_8);
+        rdo_9 = findViewById(R.id.rdo_9);
+        imageView = findViewById(R.id.imageView);
+        button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setVisibility(View.INVISIBLE);
+                radioGroup.setVisibility(View.INVISIBLE);
+                imageView.setVisibility(View.INVISIBLE);
+                button.setVisibility(View.INVISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+                imageView.setImageResource(0);
+                radioGroup.clearCheck();
+                sw.setChecked(false);
+            }
+        });
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    textView.setVisibility(View.VISIBLE);
+                    radioGroup.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    button.setVisibility(View.VISIBLE);
+                    button2.setVisibility(View.VISIBLE);
+                }else {
+                    textView.setVisibility(View.INVISIBLE);
+                    radioGroup.setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
+                    button.setVisibility(View.INVISIBLE);
+                    button2.setVisibility(View.INVISIBLE);
+                }
+            }
+
+        });
+
+    }
+     public void onVersion(View v){
+        switch (v.getId()){
+            case R.id.rdo_7 :
+                imageView.setImageResource(R.drawable.api50);
+                break;
+            case R.id.rdo_8 :
+                imageView.setImageResource(R.drawable.api60);
+                break;
+            case R.id.rdo_9:
+                imageView.setImageResource(R.drawable.api70);
+                break;

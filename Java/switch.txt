@@ -1,0 +1,58 @@
+//swhitch를 이용한 연산
+Scanner s = new Scanner(System.in);
+		double num1,num2;
+		char ch;
+		
+		System.out.print("첫번째 수를 입력하세요:");
+		num1 = s.nextDouble();
+		System.out.print("연산자를 입력하세요.:");
+		ch = s.next().charAt(0);
+		System.out.print("두번째 수를 입력하세요.:");
+		num2 = s.nextDouble();
+		
+		switch(ch) {
+		case'+' : 
+			System.out.println(num1+"+"+num2+"="+(num1+num2));
+			break;
+		case'-' : 
+			System.out.println(num1+"-"+num2+"="+(num1-num2));
+			break;
+		case'/' : 
+			System.out.println(num1+"/"+num2+"="+(num1/num2));
+			break;
+		case'*' : 
+			System.out.println(num1+"*"+num2+"="+(num1*num2));
+			break;
+		case'%' : 
+			System.out.println(num1+"+"+num2+"="+(num1%num2));
+			break;
+		default:
+			System.out.println("잘못된 연산자입니다.");
+//층수는??
+
+Scanner s = new Scanner(System.in);
+	int bilding;
+	System.out.print("몇층?");
+	bilding = s.nextInt();
+	
+	switch (bilding) {
+	case 1 :
+		System.out.println("1층 약국입니다.");
+		break;
+	case 2 : 
+		System.out.println("2층 정형외과입니다.");
+		break;
+	case 3 : 
+		System.out.println("3층 피부과입니다.");
+		break;
+	case 4 : 
+		System.out.println("4층 치과입니다.");
+		break;
+	case 5 : 
+		System.out.println("5층 헬스클럽입니다.");
+		break;
+	default :
+		System.out.println("잘못입력하셨습니다");
+	
+
+		

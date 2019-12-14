@@ -1,0 +1,29 @@
+//Number
+
+public class Number {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//   +,*,/,-,% 연산자
+		System.out.println(1+2);
+		System.out.println(2*2);
+		System.out.println(6/3);
+	}
+}
+
+//String
+public class String {
+
+	public static void main(java.lang.String[] args) {
+		// TODO Auto-generated method stub
+		//문자''
+		System.out.println('박');
+		//문자열 ""(문자의 결합)
+		System.out.println("박진태");
+		//문자열의 결합
+		System.out.println("1"+"1");
+		//역슬래시를이용하여 (")가 문자열의 시작과 끝이 아니라 일반 문자열로 인식하게 하기
+		System.out.println("egoing said\n\"Welcome progrmming world\"");
+	}
+
+}

@@ -12,7 +12,7 @@ public class Number {
 }
 
 //String
-public class String {
+public class St_String {
 
 	public static void main(java.lang.String[] args) {
 		// TODO Auto-generated method stub

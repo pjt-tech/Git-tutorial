@@ -1,0 +1,71 @@
+//메인
+public class Fruit_Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Fruit_Buyer buyer = new Fruit_Buyer();
+		Fruit_Seller seller1 = new Fruit_Seller(0,30,1000);
+		Fruit_Seller seller2 = new Fruit_Seller(0,20,1500);
+		
+		buyer.buyApple(seller1, 2000);
+		buyer.buyApple(seller2, 5000);
+		
+		System.out.println("----------------------------");
+		System.out.println("구매자 현황");
+		buyer.buyResult();
+		System.out.println("----------------------------");
+		System.out.println("판매자 1현황");
+		seller1.SellerResult();
+		System.out.println("----------------------------");
+		System.out.println("판매자 2현황");
+		seller2.SellerResult();
+	}
+}
+
+//buyer
+
+public class Fruit_Buyer {
+	
+	int myMoney = 0;
+	int numofApple = 0;
+	
+	public void buyApple(Fruit_Seller seller, int money ) {
+		myMoney = money;
+		numofApple += seller.AppleSeller(money);
+		myMoney -= money;
+		
+	}
+	
+	public void buyResult() {
+		System.out.println("남은 금액 :" + myMoney);
+		System.out.println("사과 개수 :" + numofApple);
+	}
+
+}
+//seller
+
+public class Fruit_Seller {
+	int numofApple;
+	int myMoney;
+	int APPLE_PRICE;
+	public Fruit_Seller(int money,int num,int price) {
+		this.APPLE_PRICE = price;
+		this.myMoney = money;
+		this.numofApple = num;
+	}
+	public int AppleSeller(int money) {
+		int num = money/APPLE_PRICE;
+		numofApple -= num;
+		myMoney += money;
+		return num;
+	}
+	
+	
+	public void SellerResult() {
+		System.out.println("판매 금액 : "  + myMoney);
+		System.out.println("남은 사과 : " + numofApple);
+	}
+	
+
+}

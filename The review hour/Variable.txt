@@ -1,0 +1,44 @@
+// 정수형 변수 
+public class Integer_Demo {
+
+	public static void main(String[] args) {
+		//데이터 형식과 변수 (=)대입,정수와 실수
+		{
+		int a;
+		a = 1;
+		System.out.println(a);
+		System.out.println(a+1);
+		}
+		double a;
+		a = 1.1;
+		System.out.println(a);
+		System.out.println(a+1.1);
+
+		int c = 100;
+		System.out.println(c + 10);
+		System.out.println((c + 10)/10-10);
+		System.out.println(c + 10 / 10);
+
+	}
+
+}
+
+///문자형 변수
+
+public class StringDemo {
+
+	public static void main(String[] args) {
+		// 문자열 변수선언 ,의미 : 중복의 제거
+		String first = "안녕";
+		System.out.println(first);
+		
+		String a,b;
+		a= "coding";
+		b= "everybody";
+	
+		System.out.println(a+b);
+		
+
+	}
+
+}

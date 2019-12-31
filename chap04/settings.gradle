@@ -1,0 +1,2 @@
+include ':app', ':myadd', ':self-check-1', ':self-check-2', ':self4-3', ':self4-4'
+rootProject.name='chap04'

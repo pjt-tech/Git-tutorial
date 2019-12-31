@@ -1,0 +1,2 @@
+include ':app', ':sel-check'
+rootProject.name='J_Chap06'

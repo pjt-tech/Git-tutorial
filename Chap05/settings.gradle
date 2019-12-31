@@ -1,0 +1,2 @@
+include ':app', ':linearlayout_ex', ':self5_3', ':self-check-5_4', ':gridlayout_ex'
+rootProject.name='Chap05'

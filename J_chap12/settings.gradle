@@ -1,0 +1,2 @@
+include ':app', ':student_school'
+rootProject.name='J_chap12'

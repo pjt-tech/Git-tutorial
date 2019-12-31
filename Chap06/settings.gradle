@@ -1,0 +1,2 @@
+include ':app', ':autocomplete', ':progressbar_ex', ':seekbar_ex', ':animation_scale_ex', ':animation_scale_ex2', ':ratingbar_ex', ':vflipper', ':tabhost_ex', ':webview_ex'
+rootProject.name='Chap06'

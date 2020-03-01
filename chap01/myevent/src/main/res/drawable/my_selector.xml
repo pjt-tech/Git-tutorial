@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/red"/> //눌리거나 커서가 깜빡거리면 red
+    <item
+        android:drawable="@drawable/blue"/> //평소에는 blue
+</selector>

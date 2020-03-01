@@ -1,0 +1,2 @@
+include ':app', ':framelayout_ex', ':tablelayout_ex', ':myevent', ':mytoast'
+rootProject.name='chap01'

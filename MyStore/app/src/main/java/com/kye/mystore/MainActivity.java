@@ -1,17 +1,17 @@
 package com.kye.mystore;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.BaseAdapter;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
+        import com.google.android.material.floatingactionbutton.FloatingActionButton;
+        import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.layout);
         //탭호스트와 뷰페이저 연동
         tabLayout.setupWithViewPager(viewPager);
+
 
 
 

@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':myrecyclerview'
 rootProject.name='MyStore'

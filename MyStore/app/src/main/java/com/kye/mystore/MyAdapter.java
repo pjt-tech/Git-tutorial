@@ -1,5 +1,7 @@
 package com.kye.mystore;
 
+import android.content.Context;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +17,7 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     //탭호스트의 타이틀
     String[] titles = {"tab1","tab2","tab3","tab4"};
+
 
     public MyAdapter(FragmentManager fm) {
         super(fm);

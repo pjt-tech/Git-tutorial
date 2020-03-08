@@ -25,7 +25,8 @@ public class FragmentA extends ListFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String[] datas = {"AOA","TWICE","BLACKPINK","여자친구"};
+        String[] datas ={"AOA","TWICE","BLACKPINK","여자친구"};
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,datas);
         setListAdapter(adapter);
 

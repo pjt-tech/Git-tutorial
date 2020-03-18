@@ -1,6 +1,6 @@
 -목요일 시험 (데이터베이스 활용)  10문제
 
-DB생성 및 사용 테이블생성 테이블속성 제약조건 (pk,fk,not null,unique)
+DB생성 및 사용 테이블생성 테이블속성 제약조건 (pk,fk,not null, ) (o)
 
 테이블 수정 , 데이터 형식 바꾸는 법 , 열 삭제 
 
@@ -10,11 +10,36 @@ DB생성 및 사용 테이블생성 테이블속성 제약조건 (pk,fk,not null
 
 select 검색 , 정렬해서보기 , 그룹화해서보기
 
-사용자 계정추가 , 권한설정 , 트랜젝션 ,오토커밋 ,롤백
+사용자 계정추가 - create user 아이디@ %는 외부접근권한 , localhost는 내부 identified by 'password';
+	`	CREATE user dltkd704@localhost IDENTIFIED by '1234';
+		show GRANTS for dltkd704@localhost;
 
-데이터사전개념,데이터사전내용,사전영역,사전검색
+권한설정 - 모든권한부여 : Grant all on *.* to 'dltkd704'@'localhost' with grant option;
+	  모든권한회수 : revoke all PRIVILEGES , GRANT OPTION FROM 'dltkd704'@'localhost';
+	  선택권한회수 : revoke select On *.* from 'dltkd704'@'localhost';
 
--------------------------------------------------------------------------------------------------
+트랜젝션 ,오토커밋 ,롤백
+use cookdb;
+SELECT * from usertbl;
+SELECT @@autocommit;
+START TRANSACTION;
+SAVEPOINT a;
+INSERT INTO usertbl VALUES('pjt','박진태',1992,'전북',010,74439223,180,'2000-2-3');
+SAVEPOINT b;
+UPDATE usertbl set username = '김예은' WHERE userId = 'pjt';
+ROLLBACK to a;
+ROLLBACK to b;
+
+
+데이터사전개념 - 데이터 베이스의 데이터를 제외한 모든 정보가 들어있다. 시스템이 사전 내용을 변결 할 수 있는 권한을 가지며 
+	          사용자는 단순 조회만 가능하다.  메타 데이터로 구성
+데이터사전내용 - 데이터 사전 안의 메타데이터 유형으로는 사용자 정보, 데이터베이스 객체 정보 , 무결성 제약정보, 함수 ,프로시저 및  트리거 등
+	          데이터의 내용이 메타데이터라는 것은 DBMS공통이지만 제품마다 구체적인 내용은 조금씩다르다.
+
+사전용도 - 사용자에게는 단순 조회 대상이지만 , db 엔진을 이루는 컴파일러나 옵티마이저 등과 같은 구성 요소에 데이터 사전은 작업을 수행하는 데 필요한
+	  참조 정보일 뿐만 아니라 작업의 대상이기도 하다.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -금요일 시험 10문제
 

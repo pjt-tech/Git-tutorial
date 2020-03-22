@@ -1,28 +1,28 @@
 package com.kye.mymovie;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.content.Intent;
+import android.icu.text.Transliterator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MyAdapter extends BaseAdapter {
+public class ContentsAdapter extends BaseAdapter {
 
-    ArrayList<ReviewItem> item = new ArrayList<>();
+    ArrayList<ReviewItem> item;
     Context context;
 
-    public MyAdapter(Context context) {
-        this.context = context;
-        item.add(new ReviewItem("dltkd12**","꿀잼보장, 다음에 한번 더 볼거에요"));
-        item.add(new ReviewItem("kye5***","돈아까워요, 보지마세요"));
-        item.add(new ReviewItem("pjt33**","간만에 재밌는 영화!, 추천해요"));
 
+    public ContentsAdapter(Context context,ArrayList item) {
+        this.context = context;
+        this.item = item;
+        Collections.reverse(item);
     }
+
 
     @Override
     public int getCount() {
@@ -45,6 +45,8 @@ public class MyAdapter extends BaseAdapter {
         ReviewItem items  = item.get(position);
         reviewer.setName(items.getName());
         reviewer.setContents(items.getContents());
+
+
         return reviewer;
     }
 }

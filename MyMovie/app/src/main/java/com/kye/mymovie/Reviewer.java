@@ -19,8 +19,8 @@ public class Reviewer extends LinearLayout {
     }
 
     public Reviewer(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+            super(context, attrs);
+            init(context);
     }
 
     public void init(Context context) {

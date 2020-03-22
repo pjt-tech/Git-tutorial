@@ -1,6 +1,8 @@
 package com.kye.mymovie;
 
-public class ReviewItem {
+import java.io.Serializable;
+
+public class ReviewItem implements Serializable {
     String name,contents;
 
     public ReviewItem(String name, String contents) {

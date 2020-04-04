@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+}
+
+
+#ino{
+    font-size: 24px;
+    color: #ffffff;
+    vertical-align: middle;
+}
+.Portfolio{  
+   margin-left: 30px;
+   font-size: 16px;
+   color: #4a4a4a;
+   font-weight: bold;
+   
+}
+
+.make{
+   margin-left: 30px;
+   font-size: 20px;
+   color: #1b1b1b;
+   font-weight: bold;
+  
+}
+
+.content{
+    margin-left: 30px;
+    font-size: 16px;
+    color: #7a7a7a;
+    margin-top: 30px;
+
+} 
+.view{
+    text-align: center;
+    border: 5px solid white;
+    width: 200px;
+    font-size: 20px;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    padding: 9px;
+}
+div img{
+    
+    width: 100%;
+   
+}
+@media (max-width:767px){
+    #div1{
+        padding: 0px 30px;
+        height:80px;
+        background:#000000;
+        line-height: 80px;
+    }
+    #div2{
+        width: 100%;
+    } 
+    #div3{ 
+        
+        height:320px;
+     
+    } 
+    #div4{
+        
+    } 
+    #div5{
+        position: relative;
+    }
+    
+    #div6{
+    } 
+}
+
+@media (min-width:768px){
+  #div1{
+        padding: 0px 30px;  
+        height:80px;
+        background:#000000;
+        line-height: 80px;
+    }
+    #div2{
+        
+    } 
+    #div3{
+        
+        height:320px;
+      
+    } 
+    #div4{
+        width: 50%;
+        float: left;
+    } 
+    #div5{
+        float: left;
+        width: 50%;
+        position: relative;
+    }
+    #div6{
+        width: 50%;
+        float: left;
+    } 
+}
+@media (min-width:992px){
+     #div1{
+        padding: 0px 30px;
+        height:80px;
+        background:#000000;
+        line-height: 80px;
+    }
+    #div2{
+        float: left;
+        width: 50%;
+        
+    } 
+    #div3{
+        width: 50%;
+        float: left;
+     
+    } 
+    #div4{
+        width: 25%;
+        float: left;
+    } 
+    #div5{
+        float: left;
+        width: 25%;
+        position: relative;
+    }
+    #div6{
+        width: 25%;
+        float: left;
+
+    } 
+}

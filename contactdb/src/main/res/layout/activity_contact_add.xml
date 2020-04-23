@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        android:text="연락처추가">
+    </TextView>
+
+    <Button
+        android:id="@+id/btnadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="연락처추가"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름 : "
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/nameedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:hint="이름을입력하세요."
+                android:background="#aaaaaa" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="연락처 : "
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/phonenumberedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:hint="연락처를입력하세요."
+                android:background="#aaaaaa"/>
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일 : "
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/emailedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:hint="이메일을입력하세요."
+                android:background="#aaaaaa"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
+

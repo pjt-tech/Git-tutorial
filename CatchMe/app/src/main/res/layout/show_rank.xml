@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout 
+        android:id="@+id/lay1"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+    </LinearLayout> 
+  
+    <LinearLayout 
+        android:id="@+id/lay2"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+
+    </LinearLayout> 
+ 
+    <LinearLayout 
+        android:id="@+id/lay3"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay4"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay5" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay6"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay7" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay8" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay9"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay10"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+    </LinearLayout> 
+</LinearLayout>  -->
+
+
+<!-- 
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout 
+        android:id="@+id/lay1"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+
+   	    <TextView
+	        android:id="@+id/rank1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="1 등"
+	        android:textSize="15dp"/>
+ 	
+	    <TextView  
+	        android:id="@+id/player1"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score1"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+  
+    <LinearLayout 
+        android:id="@+id/lay2"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="2 등"
+	        android:textSize="15dp"/>
+ 	
+		<TextView  
+	        android:id="@+id/player2"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score2"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+ 
+    <LinearLayout 
+        android:id="@+id/lay3"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="3 등"
+	        android:textSize="15dp"/>
+ 	
+	    <TextView  
+	        android:id="@+id/player3"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score3"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay4"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="4 등"
+	        android:textSize="15dp"/>
+	
+	    <TextView  
+	        android:id="@+id/player4"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score4"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay5" 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="5 등"
+	        android:textSize="15dp"/>
+	
+	    <TextView  
+	        android:id="@+id/player5"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score5"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/> 
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay6"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank6"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="6 등"
+	        android:textSize="15dp"/>
+ 	
+	    <TextView  
+	        android:id="@+id/player6"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score6"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/> 
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay7" 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank7"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="7 등"
+	        android:textSize="15dp"/>
+ 	
+	    <TextView  
+	        android:id="@+id/player7"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score7"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/> 
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay8" 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank8"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="8 등"
+	        android:textSize="15dp"/>
+  	
+	    <TextView  
+	        android:id="@+id/player8"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score8"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/> 
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay9"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank9"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="9 등"
+	        android:textSize="15dp"/>
+  	
+	    <TextView  
+	        android:id="@+id/player9"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score9"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay10"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	   
+		<TextView
+	        android:id="@+id/rank10"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:text="10 등"
+	        android:textSize="15dp"/>
+	
+	    <TextView  
+	        android:id="@+id/player10"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+	    
+	    <TextView  
+	        android:id="@+id/score10"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_weight="2"/>
+    </LinearLayout> 
+</LinearLayout> 
+
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout 
+        android:id="@+id/lay1"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+
+   	    <TextView
+	        android:id="@+id/rank1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout> 
+   
+    <LinearLayout 
+        android:id="@+id/lay2"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout> 
+ 
+    <LinearLayout 
+        android:id="@+id/lay3"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank3"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay4"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank4"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        />
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay5" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank5"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/> 
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay6"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank6"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/> 
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay7" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/rank7"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/> 
+    </LinearLayout> 
+    
+    <LinearLayout
+        android:id="@+id/lay8" 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank8"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/> 
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay9"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	    <TextView
+	        android:id="@+id/rank9"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:id="@+id/lay10"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginTop="10dp">
+	   
+		<TextView
+	        android:id="@+id/rank10"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"/>
+    </LinearLayout> 
+</LinearLayout> 

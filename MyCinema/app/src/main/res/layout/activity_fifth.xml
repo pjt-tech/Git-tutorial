@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:id="@+id/main_drawer"
+    android:id="@+id/luck_drawer"
     tools:context=".MainActivity">
 
     <include
-        layout="@layout/drawer_main"
+        layout="@layout/drawer_luck"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </include>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/main_drawerView"
+        android:id="@+id/luck_drawerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity= "start"

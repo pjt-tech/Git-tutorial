@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:id="@+id/main_drawer"
+    android:id="@+id/detail_drawer"
     tools:context=".MainActivity">
 
     <include
-        layout="@layout/drawer_main"
+        layout="@layout/drawer_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </include>

@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:id="@+id/main_drawer"
+    android:id="@+id/gong_drawer"
     tools:context=".MainActivity">
 
     <include
-        layout="@layout/drawer_main"
+        layout="@layout/drawer_gong"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </include>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/main_drawerView"
+        android:id="@+id/gong_drawerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity= "start"

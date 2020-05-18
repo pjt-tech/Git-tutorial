@@ -1,0 +1,50 @@
+ArrayList<ReviewItem> list;
+
+Intent intent = getIntent();
+                list = intent.getParcelableArrayListExtra("list");
+
+//adapter = new ListAdapter(this,list);
+/*
+    public class ListAdapter extends BaseAdapter {
+
+        Context context;
+        ArrayList<ReviewItem> list;
+
+        public ListAdapter(Context context,ArrayList<ReviewItem> list) {
+            this.context = context;
+            Collections.reverse(list);
+            this.list = list;
+        }
+
+        public void addItem(ReviewItem item){
+            list.add(item);
+        }
+
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Reviewer reviewer = new Reviewer(context);
+            ReviewItem items  = list.get(position);
+            reviewer.setName(items.getName());
+            reviewer.setContents(items.getContents());
+
+            return reviewer;
+        }
+    }
+
+ */

@@ -53,6 +53,5 @@ public class ReviewItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.contents);
-
     }
 }

@@ -83,11 +83,10 @@
                                     android:textStyle="bold" />
 
                                 <ImageView
-                                    android:id="@+id/imageView3"
+                                    android:id="@+id/img_grade"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    app:srcCompat="@drawable/ic_15" />
+                                    android:layout_marginLeft="10dp"/>
 
                             </LinearLayout>
 
@@ -224,7 +223,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
-                                android:layout_marginLeft="2dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_toRightOf="@id/rating"/>
                         </RelativeLayout>

@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +30,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.kye.mycinema.adapter.MyListAdapter;
 import com.kye.mycinema.R;
 import com.kye.mycinema.data.AppHelper;
-import com.kye.mycinema.data.DetailInfo;
+import com.kye.mycinema.data.CommentList;
 import com.kye.mycinema.data.DetailLIst;
 import com.kye.mycinema.data.ImageLoadTask;
 import com.kye.mycinema.data.MovieInfo;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
 
+    Handler handler = new Handler();
     ArrayList<ReviewItem> list = new ArrayList<>();
     TextView yes,no,title_txt,txt_rate,txt_rating,audience,genre,date,synopsis,director,actor; //웹에서 받아온 내용 적용할 상세화면 텍스트뷰들
     ImageView yesImage,noImage,mainImage;
@@ -52,14 +55,17 @@ public class DetailActivity extends AppCompatActivity {
     FrameLayout frame;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-    int mainIndex;
-    int index = 0;
-    boolean select = true;
-    String name,contents;
     LinearLayout container;
     MyListAdapter myAdapter;
     ViewGroup viewGroup;
     ListView listView;
+    ImageView img_grade;
+    int mainIndex; //id로 이용하기 위한 변수
+    int index = 0;
+    boolean select = true;
+    String title;
+    float rating;
+    int grade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,7 @@ public class DetailActivity extends AppCompatActivity {
         no = findViewById(R.id.notext);
         pb = findViewById(R.id.progressBar);
         frame = findViewById(R.id.frame);
+        img_grade = findViewById(R.id.img_grade);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.detail_drawer);
@@ -94,14 +101,16 @@ public class DetailActivity extends AppCompatActivity {
         mainIndex = intent.getIntExtra("index",0);
 
         requestMovieList();
+
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
         listView = viewGroup.findViewById(R.id.listView);
 
+        myAdapter = new MyListAdapter(getApplicationContext(),list);
+
         toolbar.setTitle("영화 상세");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         setSupportActionBar(toolbar);
-
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {};
         toggle.syncState();
 
@@ -119,13 +128,15 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        //region like
+
         all_btn = findViewById(R.id.all_btn);
         all_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                intent.putParcelableArrayListExtra("list",list);
+                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+                intent.putExtra("list",list);
+                intent.putExtra("title",title);
+                intent.putExtra("rating",rating);
                 startActivity(intent);
             }
         });
@@ -135,10 +146,11 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ContentsActivity.class);
+                intent.putExtra("index",mainIndex);
                 startActivityForResult(intent,10);
             }
         });
-
+        //region like
         yesImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +197,8 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
         //endregion
+
+
     }
 
     //region request
@@ -200,10 +214,8 @@ public class DetailActivity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            myAdapter = new MyListAdapter(getApplicationContext(),mainIndex);
-                            listView.setAdapter(myAdapter);
+                            requestCommentList();
                             processResponse(response);
-
                         }
                     },
                     new Response.ErrorListener() {
@@ -224,37 +236,87 @@ public class DetailActivity extends AppCompatActivity {
 
                 Gson gson = new Gson();
                 DetailLIst detailLIst = gson.fromJson(response, DetailLIst.class);
-                DetailInfo detailInfo = detailLIst.result.get(0);
-                title_txt.setText(detailInfo.id + "." + detailInfo.title);
-                date.setText(detailInfo.date + " 개봉");
-                genre.setText(detailInfo.genre + "/" + detailInfo.duration + "분");
-                txt_rate.setText(detailInfo.reservation_rate + "%");
-                txt_rating.setText(String.valueOf(detailInfo.audience_rating));
-                audience.setText(String.valueOf(detailInfo.audience) + "명");
-                yes.setText(String.valueOf(detailInfo.like));
-                no.setText(String.valueOf(detailInfo.dislike));
-                synopsis.setText(detailInfo.synopsis);
-                director.setText(detailInfo.director);
-                actor.setText(detailInfo.actor);
-                String url = detailInfo.thumb;
+                MovieInfo info = detailLIst.result.get(0);
+                title = info.title;
+                rating = info.audience_rating;
+                title_txt.setText(info.id + "." + title);
+                date.setText(info.date + " 개봉");
+                genre.setText(info.genre + "/" + info.duration + "분");
+                txt_rate.setText(info.reservation_rate + "%");
+                txt_rating.setText(String.valueOf(rating));
+                audience.setText(String.valueOf(info.audience) + "명");
+                yes.setText(String.valueOf(info.like));
+                no.setText(String.valueOf(info.dislike));
+                synopsis.setText(info.synopsis);
+                director.setText(info.director);
+                actor.setText(info.actor);
+                String url = info.thumb;
                 ImageLoadTask task = new ImageLoadTask(url, mainImage, pb);
                 task.execute();
-
+                grade = info.grade;
+                if(grade==12){
+                    img_grade.setImageResource(R.drawable.ic_12);
+                }else if(grade==15){
+                    img_grade.setImageResource(R.drawable.ic_15);
+                }else if(grade==19){
+                    img_grade.setImageResource(R.drawable.ic_19);
+                }
         }
         //endregion
+
+    //region CommentList
+    public void requestCommentList(){
+
+        String url = "http://" + AppHelper.host + ":" + AppHelper.port + "/movie/readCommentList";
+        url += "?" + "id="+(mainIndex+1);
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        commentResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+        request.setShouldCache(false);
+        AppHelper.requestQueue.add(request);
+    }
+
+    public void commentResponse(String response){
+
+        Gson gson = new Gson();
+        CommentList commentList = gson.fromJson(response, CommentList.class);
+        for(int i = 0; i < commentList.result.size(); i++){
+            MovieInfo info = commentList.result.get(i);
+            String writer = info.writer;
+            String contents = info.contents;
+            String time = info.time;
+            ReviewItem reviewItem = new ReviewItem(writer,contents,time);
+            list.add(reviewItem);
+        }
+        listView.setAdapter(myAdapter);
+    }
+    //endregion
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==10 && resultCode==RESULT_OK){
-            this.name = data.getStringExtra("name");
-            this.contents = data.getStringExtra("contents");
-            Toast.makeText(getApplicationContext(), "저장된 아이디 : "+name+" , 저장된 내용 : " + contents, Toast.LENGTH_LONG).show();
-            list.add(new ReviewItem(name,contents));
-        }
-    }
 
-        @Override
+             }
+        }
+
+
+    @Override
         public boolean onOptionsItemSelected(@NonNull MenuItem item) {
             if (toggle.onOptionsItemSelected(item)) {
                 return true;
@@ -270,4 +332,5 @@ public class DetailActivity extends AppCompatActivity {
                 super.onBackPressed();
             }
         }
-    }
+
+}

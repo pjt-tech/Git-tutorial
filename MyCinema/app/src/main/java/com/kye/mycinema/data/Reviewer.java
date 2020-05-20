@@ -12,8 +12,8 @@ import com.kye.mycinema.R;
 
 public class Reviewer extends LinearLayout {
 
-    String name,contents;
-    TextView idtext,contentsText;
+    String name,contents,time;
+    TextView idtext,contentsText,txt_time;
 
     public Reviewer(Context context) {
         super(context);
@@ -30,6 +30,7 @@ public class Reviewer extends LinearLayout {
         layoutInflater.inflate(R.layout.listitem, this, true);
         idtext = findViewById(R.id.idText);
         contentsText = findViewById(R.id.contentText);
+        txt_time = findViewById(R.id.txt_time);
     }
 
     public String getName() {
@@ -46,5 +47,13 @@ public class Reviewer extends LinearLayout {
 
     public void setContents(String contents) {
         contentsText.setText(contents);
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        txt_time.setText(time);
     }
 }

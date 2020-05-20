@@ -4,16 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ReviewItem implements Parcelable {
-    String name,contents;
+    String name,contents,time;
 
-    public ReviewItem(String name, String contents) {
+    public ReviewItem(String name, String contents,String time) {
         this.name = name;
         this.contents = contents;
+        this.time = time;
     }
 
     protected ReviewItem(Parcel in) {
         name = in.readString();
         contents = in.readString();
+        time = in.readString();
     }
 
     public static final Creator<ReviewItem> CREATOR = new Creator<ReviewItem>() {
@@ -44,6 +46,14 @@ public class ReviewItem implements Parcelable {
         this.contents = contents;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -53,5 +63,6 @@ public class ReviewItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.contents);
+        dest.writeString(this.time);
     }
 }

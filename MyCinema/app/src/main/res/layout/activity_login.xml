@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/background"
+    tools:context=".activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="@drawable/linear_border2">
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:text="로그인" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/linear_border2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:text="ID : " />
+
+            <EditText
+                android:id="@+id/edt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Email 입력"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#ffffff"
+                android:inputType="textPersonName"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:text="Pw : "/>
+
+            <EditText
+                android:id="@+id/edt_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호 입력"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#ffffff"
+                android:inputType="textPassword"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:layout_marginRight="20dp"
+                android:textColor="#ffffff"
+                android:text="Sign in" />
+
+            <Button
+                android:id="@+id/btn_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
+                android:text="Back" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="forgot Password ?"
+            android:textStyle="italic"
+            android:textColor="#ffffff"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txt_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/linear_border2"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_gravity="end"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:text="회원가입"/>
+    </LinearLayout>

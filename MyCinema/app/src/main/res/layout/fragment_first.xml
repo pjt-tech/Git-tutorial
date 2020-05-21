@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/fir_img"
             android:layout_width="300dp"
-            android:layout_height="400dp"
+            android:layout_height="390dp"
             android:layout_gravity="center" />
 
         <ProgressBar
@@ -31,7 +31,7 @@
         android:id="@+id/frag_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="25dp" />
@@ -77,10 +77,11 @@
         android:id="@+id/detail_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FF5722"
+        android:background="@drawable/button"
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:text="상세보기"
+        android:padding="8dp"
         android:textColor="#ffffff"
-        android:textSize="25dp" />
+        android:textSize="22dp" />
 </LinearLayout>

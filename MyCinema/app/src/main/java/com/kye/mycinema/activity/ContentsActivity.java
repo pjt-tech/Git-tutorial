@@ -14,13 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.Gson;
 import com.kye.mycinema.R;
-import com.kye.mycinema.adapter.MyListAdapter;
 import com.kye.mycinema.data.AppHelper;
-import com.kye.mycinema.data.CommentList;
-import com.kye.mycinema.data.MovieInfo;
-import com.kye.mycinema.data.ReviewItem;
 
 import java.util.HashMap;
 import java.util.Map;

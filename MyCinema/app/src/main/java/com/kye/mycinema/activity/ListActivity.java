@@ -13,15 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.kye.mycinema.R;
-        import com.kye.mycinema.adapter.MyListAdapter;
+        import com.kye.mycinema.data.MyListAdapter;
 import com.kye.mycinema.data.ReviewItem;
-import com.kye.mycinema.data.Reviewer;
 
 import java.util.ArrayList;
 
 
 public class ListActivity extends AppCompatActivity {
-
 
     ArrayList<ReviewItem> list;
     MyListAdapter adapter;
@@ -47,7 +45,8 @@ public class ListActivity extends AppCompatActivity {
         ViewGroup viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
         ListView listView = viewGroup.findViewById(R.id.listView);
 
-        adapter = new MyListAdapter(this,list);
+        adapter = new MyListAdapter(this);
+        adapter.addItem(list);
         listView.setAdapter(adapter);
 
         contents_btn.setOnClickListener(new View.OnClickListener() {

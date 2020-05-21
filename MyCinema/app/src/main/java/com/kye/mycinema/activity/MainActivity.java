@@ -1,6 +1,7 @@
 package com.kye.mycinema.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,10 +13,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.kye.mycinema.R;
 import com.kye.mycinema.data.AppHelper;
@@ -35,6 +40,8 @@ import com.kye.mycinema.fragment.ThirdFragment;
 import com.kye.mycinema.fragment.FirstFragment;
 import com.kye.mycinema.fragment.FifthFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -43,19 +50,24 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+    NavigationView navigationView;
     MyPagerAdapter adapter;
     ArrayList<Fragment> list = new ArrayList<>();
+    TextView nav_name,nav_mail;
+    Button btn_login;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth = FirebaseAuth.getInstance();
+
         //region toolbar,viewpager,requestQueue,navigationView
         if(AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(this);
         }
-        requestMovieList();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("영화 목록");
@@ -70,8 +82,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger_menu);
 
-        final NavigationView navigationView = findViewById(R.id.main_drawerView);
+        navigationView = findViewById(R.id.main_drawerView);
         View header_View = navigationView.getHeaderView(0);
+
+        nav_name = header_View.findViewById(R.id.nav_name);
+        nav_mail = header_View.findViewById(R.id.nav_mail);
 
         ImageView imageView = header_View.findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +94,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"이미지 클릭",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+        btn_login = header_View.findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                if(btn_login.getText().equals("로그아웃")){
+                    auth.signOut();
+                    nav_name.setText("비회원");
+                    nav_mail.setText("이메일");
+                    btn_login.setText("로그인");
+                    Toast.makeText(getApplicationContext(),"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivityForResult(intent,10);
+                }
             }
         });
 
@@ -90,10 +121,29 @@ public class MainActivity extends AppCompatActivity {
                         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                             drawerLayout.closeDrawer(GravityCompat.START);
                         }
+                }else if(id == R.id.nav_book){
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ticket.movie.naver.com/Ticket/Reserve.aspx"));
+                    startActivity(intent);
+                }else if (id == R.id.nav_review){
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/"));
+                    startActivity(intent);
+                }else if (id == R.id.nav_settings){
+                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                    }
                 }
                 return true;
             }
         });
+
+        requestMovieList();
 //endregion
     }
 
@@ -253,6 +303,24 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==10){
+            if(requestCode==RESULT_OK){
+                String mail = data.getStringExtra("mail");
+                nav_name.setText("Cinema 천국 회원입니다.");
+                nav_mail.setText(mail+"으로 로그인하였습니다.");
+                btn_login.setText("로그아웃");
+            }else if(resultCode==RESULT_CANCELED){
+                nav_name.setText("비회원");
+                nav_mail.setText("이메일");
+                btn_login.setText("로그인");
+            }
         }
     }
 

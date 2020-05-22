@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     ProgressDialog progressDialog;
     FirebaseAuth auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent();
                     intent.putExtra("mail",mail);
                     setResult(RESULT_OK,intent);
+                    Toast.makeText(getApplicationContext(),"로그인 완료!",Toast.LENGTH_SHORT).show();
                     finish();
+
                 }else{
                     Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();

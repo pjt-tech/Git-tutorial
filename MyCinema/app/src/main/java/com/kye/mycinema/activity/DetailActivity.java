@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.kye.mycinema.data.MyListAdapter;
 import com.kye.mycinema.R;
@@ -61,11 +63,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     ListView listView;
     ImageView img_grade;
     FirebaseAuth auth;
+    FirebaseUser user;
 
     int mainIndex; //id로 이용하기 위한 변수
     int index = 0;  //좋아요 컨트롤
     boolean select = true; //좋아요 컨트롤
-    String title;
+    String title,mail;
     float rating;
     int grade;
 
@@ -75,6 +78,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_detail);
 
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         //region findViewById
         txt_rate = findViewById(R.id.txt_rate);
@@ -96,7 +100,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         img_grade = findViewById(R.id.img_grade);
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.detail_drawer);
-        NavigationView navigationView = findViewById(R.id.main_drawerView);
+        NavigationView navigationView;
         container = findViewById(R.id.layout);
         all_btn = findViewById(R.id.all_btn);
         contents_btn = findViewById(R.id.contents_btn);
@@ -108,7 +112,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         mainIndex = intent.getIntExtra("index",0);
 
-        myAdapter = new MyListAdapter(getApplicationContext());
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
+        listView = viewGroup.findViewById(R.id.listView);
+
+        myAdapter = new MyListAdapter(getApplicationContext(),list);
         requestMovieList();
         requestCommentList();
 
@@ -116,6 +124,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         toolbar.setTitle("영화 상세");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         setSupportActionBar(toolbar);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {};
         toggle.syncState();
 
@@ -170,8 +179,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/"));
                     startActivity(intent);
                 }else if (id == R.id.nav_settings){
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    if(btn_login.getText().equals("로그아웃")){
+                        Intent intent = new Intent(getApplicationContext(),UserSettingActivity.class);
+                        startActivity(intent);
+                    }else if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                         drawerLayout.closeDrawer(GravityCompat.START);
+
                     }
                 }
                 return true;
@@ -188,6 +201,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         btn_res.setOnClickListener(this);
         //endregion
     }
+
     //region onClick
     @Override
     public void onClick(View v) {
@@ -323,11 +337,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onResponse(String response) {
                         commentResponse(response);
-                        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
-                        listView = viewGroup.findViewById(R.id.listView);
+
                         listView.setAdapter(myAdapter);
-                        myAdapter.notifyDataSetChanged();
                     }
                 },
                 new Response.ErrorListener() {
@@ -353,7 +364,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             ReviewItem reviewItem = new ReviewItem(writer,contents,time);
             list.add(reviewItem);
         }
-        myAdapter.addItem(list);
     }
     //endregion
 
@@ -361,20 +371,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==10){
-            requestCommentList();
-        }else if(requestCode==20){
-            if(requestCode==RESULT_OK){
-                String mail = data.getStringExtra("mail");
-                nav_name.setText("Cinema 천국 회원입니다.");
-                nav_mail.setText(mail+"으로 로그인하였습니다.");
-                btn_login.setText("로그아웃");
-            }else if(resultCode==RESULT_CANCELED){
-                nav_name.setText("비회원");
-                nav_mail.setText("이메일");
-                btn_login.setText("로그인");
 
-            }
+       if(requestCode==20 && resultCode==RESULT_OK){
+                mail = data.getStringExtra("mail");
+                nav_name.setText("Cinema 천국 회원입니다.");
+                nav_mail.setText(mail + "으로 로그인하였습니다.");
+                btn_login.setText("로그아웃");
         }
     }
 
@@ -392,6 +394,32 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     drawerLayout.closeDrawer(GravityCompat.START);
             }else{
                 super.onBackPressed();
+
             }
       }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("log", "onResume()실행됨");
+        requestCommentList();
+        myAdapter.notifyDataSetChanged();
+        if(user!=null){
+            nav_name.setText("Cinema 천국 회원입니다.");
+            nav_mail.setText(user.getEmail()+"으로 로그인하였습니다.");
+            btn_login.setText("로그아웃");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("log", "onPause()실행됨");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("log", "onStop()실행됨");
+    }
 }

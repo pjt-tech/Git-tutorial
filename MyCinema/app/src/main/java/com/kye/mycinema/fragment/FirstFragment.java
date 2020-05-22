@@ -1,6 +1,7 @@
 package com.kye.mycinema.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,12 +24,6 @@ public class FirstFragment extends Fragment {
     String title,fir_img;
     float rate;
     int id,grade;
-
-
-    public FirstFragment() {
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

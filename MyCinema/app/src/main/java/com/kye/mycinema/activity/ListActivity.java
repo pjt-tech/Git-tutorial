@@ -45,9 +45,9 @@ public class ListActivity extends AppCompatActivity {
         ViewGroup viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
         ListView listView = viewGroup.findViewById(R.id.listView);
 
-        adapter = new MyListAdapter(this);
-        adapter.addItem(list);
+        adapter = new MyListAdapter(this,list);
         listView.setAdapter(adapter);
+
 
         contents_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,5 +56,11 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

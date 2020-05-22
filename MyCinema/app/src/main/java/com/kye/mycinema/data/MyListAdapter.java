@@ -23,19 +23,10 @@ public class MyListAdapter extends BaseAdapter {
     ArrayList<ReviewItem> item;
     Context context;
 
-    public MyListAdapter(){
-
-    }
-
-    public MyListAdapter(Context context){
+    public MyListAdapter(Context context,ArrayList list){
         this.context = context;
-
+        this.item = list;
     }
-
-    public void addItem(ArrayList list){
-            this.item = list;
-    }
-
 
     @Override
     public int getCount() {

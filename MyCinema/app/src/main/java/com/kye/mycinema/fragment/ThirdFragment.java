@@ -58,6 +58,7 @@ public class ThirdFragment extends Fragment {
         detail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ((MainActivity)getActivity()).onActivity(2);
             }
         });

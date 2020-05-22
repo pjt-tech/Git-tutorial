@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.kye.mycinema.R;
 import com.kye.mycinema.data.AppHelper;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     TextView nav_name,nav_mail;
     Button btn_login;
     FirebaseAuth auth;
+    FirebaseUser user;
+    int result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         //region toolbar,viewpager,requestQueue,navigationView
         if(AppHelper.requestQueue == null) {
@@ -100,15 +105,15 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                if(btn_login.getText().equals("로그아웃")){
+               if(btn_login.getText().equals("로그아웃")){
                     auth.signOut();
                     nav_name.setText("비회원");
                     nav_mail.setText("이메일");
                     btn_login.setText("로그인");
                     Toast.makeText(getApplicationContext(),"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
-                }else {
+                }else{
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivityForResult(intent,10);
+                    startActivityForResult(intent,20);
                 }
             }
         });
@@ -133,8 +138,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/"));
                     startActivity(intent);
-                }else if (id == R.id.nav_settings){
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                }else if (id == R.id.nav_settings) {
+                    if(btn_login.getText().equals("로그아웃")){
+                        Intent intent = new Intent(getApplicationContext(),UserSettingActivity.class);
+                        startActivity(intent);
+                    }else if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                         drawerLayout.closeDrawer(GravityCompat.START);
 
                     }
@@ -143,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        requestMovieList();
+
 //endregion
+        requestMovieList();
     }
 
     //region request
@@ -262,32 +271,11 @@ public class MainActivity extends AppCompatActivity {
     }
     //endregion
 
-    //region intent
-    public void onActivity(int index) {
-        Intent intent;
-        if (index == 0) {
-            intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("index",index);
-            startActivity(intent);
-        } else if (index == 1) {
-            intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("index",index);
-            startActivity(intent);
-        } else if (index == 2) {
-            intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("index",index);
-            startActivity(intent);
-        } else if (index == 3) {
-            intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("index",index);
-            startActivity(intent);
-        } else if (index == 4) {
-            intent = new Intent(getApplicationContext(), DetailActivity.class);
-            intent.putExtra("index",index);
-            startActivity(intent);
-        }
+    public void onActivity(int index){
+        Intent intent = new Intent(getApplicationContext(),DetailActivity.class);
+        intent.putExtra("index",index);
+        startActivityForResult(intent,10);
     }
-    //endregion
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -309,19 +297,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode==10 && resultCode==RESULT_OK){
+                    result = data.getIntExtra("result",0);
 
-        if(requestCode==10){
-            if(requestCode==RESULT_OK){
+             }else if(requestCode==20 && resultCode==RESULT_OK){
                 String mail = data.getStringExtra("mail");
                 nav_name.setText("Cinema 천국 회원입니다.");
                 nav_mail.setText(mail+"으로 로그인하였습니다.");
                 btn_login.setText("로그아웃");
-            }else if(resultCode==RESULT_CANCELED){
-                nav_name.setText("비회원");
-                nav_mail.setText("이메일");
-                btn_login.setText("로그인");
-            }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("log", "onResume()실행됨");
+        if(user!=null){
+            nav_name.setText("Cinema 천국 회원입니다.");
+            nav_mail.setText(user.getEmail()+"으로 로그인하였습니다.");
+            btn_login.setText("로그아웃");
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("log", "onStop()실행됨");
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {

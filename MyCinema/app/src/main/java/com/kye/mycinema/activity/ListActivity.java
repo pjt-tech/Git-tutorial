@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
-        import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
         import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,9 @@ public class ListActivity extends AppCompatActivity {
 
     ArrayList<ReviewItem> list;
     MyListAdapter adapter;
-
+    String title;
+    int grade,count;
+    float rating;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +35,29 @@ public class ListActivity extends AppCompatActivity {
         LinearLayout container = findViewById(R.id.container);
         TextView txt_title = findViewById(R.id.txt_title);
         TextView txt_rating = findViewById(R.id.txt_rating);
+        TextView txt_persons = findViewById(R.id.txt_persons);
+        ImageView img_grade = findViewById(R.id.img_grade);
 
         Intent intent = getIntent();
         list = intent.getParcelableArrayListExtra("list");
-        String title = intent.getStringExtra("title");
-        float rating = intent.getFloatExtra("rating",0);
+        title = intent.getStringExtra("title");
+        rating = intent.getFloatExtra("rating",0);
+        count = intent.getIntExtra("count",0);
+        grade =intent.getIntExtra("grade",0);
+
+        if(grade==12){
+            img_grade.setImageResource(R.drawable.ic_12);
+        }else if(grade==15){
+            img_grade.setImageResource(R.drawable.ic_15);
+        }else if(grade==19){
+            img_grade.setImageResource(R.drawable.ic_19);
+        }
 
         txt_title.setText(title);
         txt_rating.setText(String.valueOf(rating));
+        txt_persons.setText("("+count+"명 참여)");
 
+        //한줄평 리스트뷰는 공유하기위해 인플레이션을 함
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup viewGroup = (ViewGroup)layoutInflater.inflate(R.layout.comment_list, container, true);
         ListView listView = viewGroup.findViewById(R.id.listView);
@@ -52,15 +69,13 @@ public class ListActivity extends AppCompatActivity {
         contents_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ContentsActivity.class);
+                intent.putExtra("title",title);
+                intent.putExtra("grade",grade);
+                startActivity(intent);
                 finish();
             }
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
     }
 }

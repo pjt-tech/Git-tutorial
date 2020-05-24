@@ -2,7 +2,7 @@ package com.kye.mycinema.data;
 
 public class MovieInfo {
 
-    //Gson 객체를 이용하여 사용가능하도록 바꾼 fragment에 전달 할 데이터
+    //Gson 객체를 이용하여 사용 가능 하도록 바꾼 웹서버 데이터들,받아서 필요한것들만 가져다사용하면됨
     public String title;
     public int id;
     public String date;

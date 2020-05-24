@@ -12,6 +12,8 @@ import com.kye.mycinema.R;
 
 public class Reviewer extends LinearLayout {
 
+    //리스트뷰어댑터로부터 정보를 받아 인플레이션을 하기때문에  LinearLayout 을 상속받음
+
     String name,contents,time;
     TextView idtext,contentsText,txt_time;
 

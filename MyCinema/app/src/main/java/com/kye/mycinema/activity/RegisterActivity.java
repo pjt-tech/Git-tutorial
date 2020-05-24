@@ -29,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //회원가입 화면
         auth = FirebaseAuth.getInstance();
 
         edt_name = findViewById(R.id.edt_name);
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog.setMessage("등록중입니다. 기다려주세요..");
         progressDialog.show();
 
-
+        //사용자의 입력을 받아 auth에 createUserWithEmailAndPassword 로 가입시키는 절차
         auth.createUserWithEmailAndPassword(mail,pw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

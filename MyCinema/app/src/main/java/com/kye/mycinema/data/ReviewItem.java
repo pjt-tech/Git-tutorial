@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ReviewItem implements Parcelable {
+
+    //한줄평 정보를 담고 있는 객체 intent로 넘겨줘야하기때문에 parcelable을 구현하고있음
+
     String name,contents,time;
 
     public ReviewItem(String name, String contents,String time) {

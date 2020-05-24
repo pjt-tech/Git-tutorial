@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
@@ -42,7 +46,6 @@ import com.kye.mycinema.fragment.ThirdFragment;
 import com.kye.mycinema.fragment.FirstFragment;
 import com.kye.mycinema.fragment.FifthFragment;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -59,21 +62,23 @@ public class MainActivity extends AppCompatActivity {
     Button btn_login;
     FirebaseAuth auth;
     FirebaseUser user;
-    int result;
+    boolean log = true; //앱이 재실행 되었을때 로그인 제어를 위한 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //firebase Authentication를 사용하기 위함
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        user = null;
 
         //region toolbar,viewpager,requestQueue,navigationView
         if(AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(this);
         }
 
+        //툴바 설정
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("영화 목록");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger_menu);
 
+        //네비게이션 드로어 헤더 부분
         navigationView = findViewById(R.id.main_drawerView);
         View header_View = navigationView.getHeaderView(0);
 
@@ -97,8 +103,9 @@ public class MainActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"이미지 클릭",Toast.LENGTH_LONG).show();
+                Snackbar.make(viewPager,"이미지 클릭!", BaseTransientBottomBar.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
+
             }
         });
         btn_login = header_View.findViewById(R.id.btn_login);
@@ -110,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     nav_name.setText("비회원");
                     nav_mail.setText("이메일");
                     btn_login.setText("로그인");
-                    Toast.makeText(getApplicationContext(),"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(viewPager,"로그아웃 되었습니다.", BaseTransientBottomBar.LENGTH_LONG).show();
                 }else{
                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                     startActivityForResult(intent,20);
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //네비게이션드로어 메뉴 버튼 이벤트 리스너
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -125,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 if(id == R.id.nav_list){
                         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                             drawerLayout.closeDrawer(GravityCompat.START);
+                            Snackbar.make(viewPager,"영화 목록 입니다.", BaseTransientBottomBar.LENGTH_LONG).show();
                         }
                 }else if(id == R.id.nav_book){
                     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -144,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Snackbar.make(viewPager,"로그인시 사용가능합니다.", BaseTransientBottomBar.LENGTH_LONG).show();
 
                     }
                 }
@@ -154,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
 //endregion
         requestMovieList();
+
     }
 
     //region request
@@ -169,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     //String형태로 응답을 받음
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),"서버에 요청 및 응답완료",Toast.LENGTH_LONG).show();
+                        Snackbar.make(viewPager,"서버에 요청 및 응답 완료!", BaseTransientBottomBar.LENGTH_LONG).show();
                         processResponse(response);
                         adapter = new MyPagerAdapter(getSupportFragmentManager(),list);
                         viewPager.setAdapter(adapter);
@@ -265,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
                 fifth.setArguments(bundle);
                 bundle.putString("image",image);
                 break;
-
                 default : return;
         }
     }
@@ -297,36 +307,46 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode==10 && resultCode==RESULT_OK){
-                    result = data.getIntExtra("result",0);
-
-             }else if(requestCode==20 && resultCode==RESULT_OK){
+        //인텐트 결과값을 이용한 로그인 설정
+            if(data!=null){
+                if(requestCode==10&&resultCode==RESULT_CANCELED){
+                    auth.signOut();
+                    nav_name.setText("비회원");
+                    nav_mail.setText("이메일");
+                    btn_login.setText("로그인");
+                    Snackbar.make(viewPager,"로그아웃 되었습니다.", BaseTransientBottomBar.LENGTH_LONG).show();
+                }else if(requestCode==10&&resultCode==RESULT_OK){
+                    Snackbar.make(viewPager,"로그인은 영화 목록에서 해주십시오.", BaseTransientBottomBar.LENGTH_LONG).show();
+                }
+             }if(requestCode==20 && resultCode==RESULT_OK){
                 String mail = data.getStringExtra("mail");
                 nav_name.setText("Cinema 천국 회원입니다.");
                 nav_mail.setText(mail+"으로 로그인하였습니다.");
                 btn_login.setText("로그아웃");
         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("log", "onResume()실행됨");
-        if(user!=null){
-            nav_name.setText("Cinema 천국 회원입니다.");
-            nav_mail.setText(user.getEmail()+"으로 로그인하였습니다.");
-            btn_login.setText("로그아웃");
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("log", "onStop()실행됨");
-    }
+        if(log==false){
+            user = auth.getCurrentUser();
+            if (user != null) {
+                nav_name.setText("Cinema 천국 회원입니다.");
+                nav_mail.setText(user.getEmail() + "으로 로그인하였습니다.");
+                btn_login.setText("로그아웃");
+                }
+            }else{
+            nav_name.setText("비회원");
+            nav_mail.setText("이메일");
+            btn_login.setText("로그인");
+            auth.signOut();
+            log=false;
+            }
+         }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
+        //뷰페이저와 프레그먼트 연결 어댑터
         ArrayList<Fragment> list;
 
         public MyPagerAdapter(@NonNull FragmentManager fm, ArrayList list) {

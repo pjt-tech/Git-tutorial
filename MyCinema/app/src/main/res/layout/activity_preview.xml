@@ -28,27 +28,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="40dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="40dp">
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="18dp"
+            android:text="Click  : "
             android:textColor="#ffffff"
-            android:textStyle="bold"
             android:textSize="25dp"
-            android:text="Click  : " />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button"
             android:layout_marginRight="18dp"
+            android:background="@drawable/button"
             android:text="Play"
             android:textColor="#ffffff"
             android:textStyle="bold" />

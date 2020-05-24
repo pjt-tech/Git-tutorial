@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
@@ -42,15 +44,16 @@ import com.kye.mycinema.data.CommentList;
 import com.kye.mycinema.data.DetailLIst;
 import com.kye.mycinema.data.ImageLoadTask;
 import com.kye.mycinema.data.MovieInfo;
+import com.kye.mycinema.data.ResponseInfo;
 import com.kye.mycinema.data.ReviewItem;
 
 import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<ReviewItem> list = new ArrayList<>();
+    ArrayList<ReviewItem> list = new ArrayList<>(); //한줄평 리스트를 담고있는 arraylist ,어댑터에 생성자로 넘겨줌
     TextView yes,no,title_txt,txt_rate,txt_rating,audience,genre,date,synopsis,director,actor; //웹에서 받아온 내용 적용할 상세화면 텍스트뷰들
-    TextView nav_name,nav_mail;
+    TextView nav_name,nav_mail; //네비게이션 드로어 헤더 텍스트
     ImageView yesImage,noImage,mainImage;
     Button contents_btn,all_btn,btn_preView,btn_res,btn_login; //인텐트
     ProgressBar pb;
@@ -64,13 +67,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     ImageView img_grade;
     FirebaseAuth auth;
     FirebaseUser user;
+    FrameLayout frameLayout;
 
     int mainIndex; //id로 이용하기 위한 변수
     int index = 0;  //좋아요 컨트롤
     boolean select = true; //좋아요 컨트롤
-    String title,mail;
+    String title;
     float rating;
-    int grade;
+    int grade,count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         user = auth.getCurrentUser();
 
         //region findViewById
+        frameLayout = findViewById(R.id.frame);
         txt_rate = findViewById(R.id.txt_rate);
         title_txt = findViewById(R.id.title_txt);
         mainImage = findViewById(R.id.mainImage);
@@ -146,20 +151,25 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+
         btn_login = header_View.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btn_login.getText().equals("로그아웃")){
+                if(btn_login.getText().equals("로그인")){
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }else if (btn_login.getText().equals("로그아웃")){
                     auth.signOut();
                     nav_name.setText("비회원");
-                    nav_mail.setText("이메일");
+                    nav_mail.setText("e-mail");
                     btn_login.setText("로그인");
-                    Toast.makeText(getApplicationContext(),"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivityForResult(intent,20);
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    setResult(RESULT_CANCELED,intent);
+                    finish();
                 }
+
             }
         });
 
@@ -179,12 +189,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/"));
                     startActivity(intent);
                 }else if (id == R.id.nav_settings){
-                    if(btn_login.getText().equals("로그아웃")){
+                    if(nav_name.getText().equals("Cinema 천국 회원입니다.")){
                         Intent intent = new Intent(getApplicationContext(),UserSettingActivity.class);
                         startActivity(intent);
                     }else if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                         drawerLayout.closeDrawer(GravityCompat.START);
-
+                        Snackbar.make(viewGroup,"로그인시 사용가능합니다.", BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
                 return true;
@@ -205,15 +215,20 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     //region onClick
     @Override
     public void onClick(View v) {
+        //좋아요 버튼을 만들기 위한 알고리즘
         if(v==all_btn){
             Intent intent = new Intent(getApplicationContext(),ListActivity.class);
             intent.putExtra("list",list);
             intent.putExtra("title",title);
             intent.putExtra("rating",rating);
+            intent.putExtra("count",count);
+            intent.putExtra("grade",grade);
             startActivity(intent);
         }else if(v==contents_btn){
             Intent intent = new Intent(getApplicationContext(), ContentsActivity.class);
             intent.putExtra("index",mainIndex);
+            intent.putExtra("title",title);
+            intent.putExtra("grade",grade);
             startActivityForResult(intent,10);
         }else if(v==yesImage){
             int num = Integer.parseInt(yes.getText().toString());
@@ -290,7 +305,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
 //endregion
 
-
     //region response
         public void processResponse(String response){
 
@@ -326,6 +340,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     //region CommentList
     public void requestCommentList(){
+        //인텐트로 넘어올때 인덱스 값으로 구별하여 웹서버의 Json데이터를 Volley의 StringRequest객체를 이용하여 String변수에 담아옴
 
         String url = "http://" + AppHelper.host + ":" + AppHelper.port + "/movie/readCommentList";
         url += "?" + "id="+(mainIndex+1);
@@ -353,8 +368,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void commentResponse(String response){
-
+        //Gson을 통하여 웹서버 한줄평 목록들을 객체로 변환 후 리스트뷰에 담아서 풀어줌
         Gson gson = new Gson();
+        ResponseInfo responseInfo = gson.fromJson(response, ResponseInfo.class);
+        count = responseInfo.totalCount;
         CommentList commentList = gson.fromJson(response, CommentList.class);
         for(int i = 0; i < commentList.result.size(); i++){
             MovieInfo info = commentList.result.get(i);
@@ -367,20 +384,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
     //endregion
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-       if(requestCode==20 && resultCode==RESULT_OK){
-                mail = data.getStringExtra("mail");
-                nav_name.setText("Cinema 천국 회원입니다.");
-                nav_mail.setText(mail + "으로 로그인하였습니다.");
-                btn_login.setText("로그아웃");
-        }
-    }
-
-    @Override
+        @Override
         public boolean onOptionsItemSelected(@NonNull MenuItem item) {
             if (toggle.onOptionsItemSelected(item)) {
                 return true;
@@ -394,32 +398,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     drawerLayout.closeDrawer(GravityCompat.START);
             }else{
                 super.onBackPressed();
-
             }
       }
-
-    @Override
-    protected void onResume() {
+        @Override
+        protected void onResume(){
         super.onResume();
+        //로그인 후 프레그먼트를 왔다갔다 할때 로그인이 풀리지않아야하기때문에 Resume에 설정 수정해야함
         Log.d("log", "onResume()실행됨");
-        requestCommentList();
-        myAdapter.notifyDataSetChanged();
-        if(user!=null){
-            nav_name.setText("Cinema 천국 회원입니다.");
-            nav_mail.setText(user.getEmail()+"으로 로그인하였습니다.");
-            btn_login.setText("로그아웃");
-        }
-    }
+            if(user!=null){
+                nav_name.setText("Cinema 천국 회원입니다.");
+                nav_mail.setText(user.getEmail()+"으로 로그인하였습니다.");
+                btn_login.setText("로그아웃");
+            }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("log", "onPause()실행됨");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("log", "onStop()실행됨");
     }
 }
